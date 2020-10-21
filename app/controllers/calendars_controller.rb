@@ -13,12 +13,12 @@ class CalendarsController < ApplicationController
   end
 
   private
-
   def plan_params
     params.require(:calendars).permit(:date, :plan)
   end
 
-  def get_Week
+  
+  def get_Week 
     wdays = ['(日)','(月)','(火)','(水)','(木)','(金)','(土)']
 
     @todays_date = Date.today
@@ -32,7 +32,7 @@ class CalendarsController < ApplicationController
       plan = plans.map do |plan|
         today_plans.push(plan.plan) if plan.date == @todays_date + x
       end
-      days = { month(:@todays_date + x).month, date(:@todays_date+x).day, plans: today_plans}
+      days = { month:(@todays_date + x).month, date:(@todays_date+x).day, plans: today_plans, wday:[wdays] }
       @week_days.push(days)
     end
 
